@@ -1,11 +1,12 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
+import { ScraperService } from './scraper.service';
 
 @Controller('scraper')
 export class ScraperController {
-  constructor() {}
+  constructor(private readonly scraperService: ScraperService) {}
 
   @Get()
-  async get() {
-    return 'test';
+  async get(@Query('page') page: string) {
+    return this.scraperService.scrapPage(page);
   }
 }
