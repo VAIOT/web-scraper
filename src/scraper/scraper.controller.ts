@@ -7,6 +7,6 @@ export class ScraperController {
 
   @Get()
   async get(@Query('page') page: string) {
-    return this.scraperService.scrapPage(page);
+    return this.scraperService.scrap(page);
   }
 }
