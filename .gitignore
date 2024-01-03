@@ -1,36 +1,50 @@
-# compiled output
-/dist
-/node_modules
+bin
+obj
+csx
+.vs
+edge
+Publish
 
-# Logs
-logs
-*.log
-npm-debug.log*
-pnpm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
-.cache
+*.user
+*.suo
+*.cscfg
+*.Cache
+project.lock.json
 
-# OS
-.DS_Store
+/packages
+/TestResults
 
-# Tests
-/coverage
-/.nyc_output
+/tools/NuGet.exe
+/App_Data
+/secrets
+/data
+.secrets
+appsettings.json
+local.settings.json
 
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+node_modules
+dist
 
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+# Local python packages
+.python_packages/
+
+# Python Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Azurite artifacts
+__blobstorage__
+__queuestorage__
+__azurite_db*__.json
+
+cache/puppeteer/chrome-headless-shell-linux64/*
