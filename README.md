@@ -23,11 +23,11 @@ The VAIOT Web Scraper is a powerful tool designed to efficiently extract data fr
 ```
 
 ### Manual deployment to Azure Functions App
-```bash
+```
 1. Download Chrome Shell from https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/120.0.6099.109/linux64/chrome-headless-shell-linux64.zip
-2. Copy contents of the downloaded archive to ``chrome/chrome-headless-shell-linux64``
-3. Run ``npm run build``
-4. Deploy to azure using func azure functionapp publish ``<function name>``
+2. Copy contents of the downloaded archive to chrome/chrome-headless-shell-linux64
+3. Run npm run build
+4. Deploy to azure using func azure functionapp publish <function name>
 ```
 
 ## Usage
