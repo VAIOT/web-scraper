@@ -14,6 +14,8 @@ export async function scraper(
 ): Promise<HttpResponseInit> {
   context.log('HTTP trigger function processed a request.');
   const page = request.query.get('page');
+
+  if (!page) return { body: 'Page parameter is missing.' };
   try {
     const browser = await launch({
       headless: 'new',
