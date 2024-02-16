@@ -8,7 +8,7 @@ import { join } from 'path';
 import { launch } from 'puppeteer';
 import { Scraper } from './scraper';
 
-export async function scraper(
+async function scraper(
   request: HttpRequest,
   context: InvocationContext,
 ): Promise<HttpResponseInit> {

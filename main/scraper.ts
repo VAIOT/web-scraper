@@ -5,6 +5,24 @@ export class Scraper {
 
   constructor(private readonly browser: Browser) {}
 
+  async filterUrls(links: HTMLAnchorElement[], url: string) {
+    const allLinks = links.map((a) => a.href);
+    const uniqueLinks = [...new Set(allLinks)];
+
+    // match links with a slash, without id tags and dots in path (avoiding files)
+    return uniqueLinks.filter(
+      (link) =>
+        (link.includes(url) || link.startsWith('/')) &&
+        !link.includes('#') &&
+        !link
+          .replace(/^https?:\/\//, '')
+          .split('/')
+          .slice(1)
+          .join('/')
+          .includes('.'),
+    );
+  }
+
   async scrapAddress(url: string) {
     if (this.links.has(url)) {
       this.links.set(url, false);
@@ -14,27 +32,7 @@ export class Scraper {
     await currentPage.goto(url);
 
     // filter urls
-    const urls = await currentPage.$$eval(
-      'a[href]',
-      (links, url) => {
-        const allLinks = links.map((a) => a.href);
-        const uniqueLinks = [...new Set(allLinks)];
-
-        // match links with a slash, without id tags and dots in path (avoiding files)
-        return uniqueLinks.filter(
-          (link) =>
-            (link.includes(url) || link.startsWith('/')) &&
-            !link.includes('#') &&
-            !link
-              .replace(/^https?:\/\//, '')
-              .split('/')
-              .slice(1)
-              .join('/')
-              .includes('.'),
-        );
-      },
-      url,
-    );
+    const urls = await currentPage.$$eval('a[href]', this.filterUrls, url);
 
     let text = '';
 
@@ -46,6 +44,7 @@ export class Scraper {
       // scrap all sub-pages
       if (this.links.get(url)) {
         text += await this.scrapAddress(url);
+        text += ' ';
       }
     }
 
