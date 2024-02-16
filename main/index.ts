@@ -1,7 +1,41 @@
-import { Context, HttpRequest } from '@azure/functions';
-import { AzureHttpAdapter } from '@nestjs/azure-func-http';
-import { createApp } from '../src/main.azure';
+import {
+  app,
+  HttpRequest,
+  HttpResponseInit,
+  InvocationContext,
+} from '@azure/functions';
+import { join } from 'path';
+import { launch } from 'puppeteer';
+import { Scraper } from './scraper';
 
-export default function(context: Context, req: HttpRequest): void {
-  AzureHttpAdapter.handle(createApp, context, req);
+export async function scraper(
+  request: HttpRequest,
+  context: InvocationContext,
+): Promise<HttpResponseInit> {
+  context.log('HTTP trigger function processed a request.');
+  const page = request.query.get('page');
+  try {
+    const browser = await launch({
+      headless: 'new',
+      executablePath: join(
+        __dirname,
+        '../..',
+        'chrome/chrome-headless-shell-linux64/chrome-headless-shell',
+      ),
+    });
+
+    const pageContent = await new Scraper(browser).scrapAddress(page);
+
+    await browser.close();
+
+    return { body: pageContent };
+  } catch (err) {
+    return { body: err };
+  }
 }
+
+app.http('scraper', {
+  methods: ['GET'],
+  authLevel: 'function',
+  handler: scraper,
+});
