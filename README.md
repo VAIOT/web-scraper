@@ -7,26 +7,28 @@
 
 # VAIOT web scraper
 
-This web scraper is designed to extract data from websites by simulating user interaction with a headless browser. It can be used for various scraping tasks such as fetching whole page contents, extracting articles, or gathering data for analysis.
+The VAIOT Web Scraper is a powerful tool designed to efficiently extract data from websites by simulating user interactions within a headless browser environment. Whether you need to retrieve entire page contents, extract articles, or collect data for in-depth analysis.
 
 ## Installation
 ```bash
-git clone https://github.com/VAIOT/web-scraper.git
-cd web-scraper
-npm i
+1. git clone https://github.com/VAIOT/web-scraper.git
+2. cd web-scraper
+3. npm i
 ```
 
 ### Local Development
 ```bash
-npm run build
-npm run start
+1. npm run build
+2. npm run start
 ```
 
 ### Manual deployment to Azure Functions App
+```bash
 1. Download Chrome Shell from https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/120.0.6099.109/linux64/chrome-headless-shell-linux64.zip
 2. Copy contents of the downloaded archive to ``chrome/chrome-headless-shell-linux64``
 3. Run ``npm run build``
 4. Deploy to azure using func azure functionapp publish ``<function name>``
+```
 
 ## Usage
 To use the web scraper API, send a GET request to the endpoint with ```page``` parameter.
